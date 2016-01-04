@@ -3,9 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.cookie('views', parseInt(req.cookies.views || 0) + 1, {
+	res.cookie('views', parseInt(req.signedCookies.views || 0) + 1, {
 		signed: true,
-		secure: true,
 		httpOnly: true
 	});
 	res.locals.views = req.cookies.views || 0;
