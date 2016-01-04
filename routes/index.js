@@ -3,13 +3,14 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	res.cookie('views', parseInt(req.cookies.views || 0) + 1);
+	res.locals.views = req.cookies.views || 0;
   res.render('index', { title: 'Express' });
 });
 
-router.get('/', function(req, res, next) {
-	res.cookie('views', parseInt(req.cookies.views || 0) + 1);
-
-	res.render('index', { title: 'Express', views: (req.cookies.views || 0)});
-})
+router.get('/refresh', function (req, res, next) {
+    res.clearCookie("views");
+    res.redirect('/');
+});
 
 module.exports = router;
